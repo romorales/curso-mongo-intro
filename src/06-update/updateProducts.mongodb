@@ -1,0 +1,41 @@
+use("platzi_store")
+
+db.products.updateOne(
+  // query
+  {_id: 2},
+  // change => operators
+  {
+    $set: {
+      name: 'Change name',
+      price: 3000,
+      tags: ['A', 'B', 'C']
+    }
+  }
+)
+
+//BUSCAR Y MODIFICAR UN OBJETO CON ID AUTOGENERADO POR MONGO CON ObjectId() 
+use("platzi_store")
+db.products.updateOne(
+  // query
+  {_id: ObjectId("6438820c351cc4c8f3827301")},
+  // change => operators
+  {
+    $inc: {
+      price: 100,
+    }
+  }
+)
+db.products.find();
+
+use("platzi_store")
+db.products.updateOne(
+  // query
+  {_id: 2},
+  // change => operators
+  {
+    $inc: {
+      price: 100,
+    }
+  }
+)
+db.products.find();

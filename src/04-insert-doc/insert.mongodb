@@ -10,3 +10,7 @@ db.products.insertOne({
   name: "Product 3",
   price: 100
 })
+db.products.insertOne({
+  name: "Product id generado auto.",
+  price: 1050
+})
