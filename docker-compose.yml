@@ -1,0 +1,13 @@
+version: "3.9"
+
+services:
+  mongodb:
+    container_name: docker-mongo
+    ports:
+      - "2717:27017"
+    image: mongo:5.0
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=root
+      - MONGO_INITDB_ROOT_PASSWORD=root123
+    volumes:
+      - ./mongo_data:/data/db
