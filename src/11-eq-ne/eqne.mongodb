@@ -24,6 +24,8 @@ db.inventory.find()
 // db.inventory.find({ "item.code": { $eq: "123" } })
 
 // Using $ne
+use("platzi_store")
+
 db.inventory.find({ qty: { $ne: 20 } })
 
 // update, increase 10 to property qty in docs with property qty not equal "20"

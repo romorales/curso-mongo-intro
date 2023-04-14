@@ -24,7 +24,7 @@ Crea un nuevo campo processed con valor true y agrega el valor 5 al array readin
 db.iot.updateMany(
   // query
   {
-    sensor: { $ne: "A001" },
+    sensor: { $ne: "A001" }, 
     date: { $gte: "2022-01-02" }
   },
   // update
