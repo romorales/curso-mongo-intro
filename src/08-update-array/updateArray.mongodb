@@ -1,0 +1,37 @@
+use("platzi_store")
+
+// add element to array
+db.inventory.updateOne({_id: 4}, {
+  $push: {
+    tags: "appliance"
+  }
+})
+
+//si queremos añadir varios elementos a un array con $each, en este caso a todos los docs de la collección
+db.inventory.updateMany({},
+  {
+    $push: {
+      tags: {
+        $each: ["ele1", "ele2"]
+      }
+    }
+  }
+)   
+
+// remove one element from array
+db.inventory.updateMany({}, {
+  $pull: {
+    tags: "book"
+  }
+})
+
+// remove others elements from array
+db.inventory.updateMany({_id: 4}, {
+    $pull: {
+      tags: {
+        $in: ["appliance", "school"]
+      }
+    }
+  })
+
+db.inventory.find()

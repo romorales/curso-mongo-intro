@@ -1,0 +1,47 @@
+use("platzi_store")
+
+db.iot.find({
+  sensor: "A001",
+  date: "2022-01-03",
+}).count()
+
+// Agrega al array un "[2323]"
+db.iot.insertOne({
+  sensor: "A001",
+  date: "2022-01-03",
+}, {
+  $push: {
+    readings: [2323]
+  }
+})
+
+// Borro el último elemento que se insertó
+db.iot.updateOne({
+  sensor: "A001",
+  date: "2022-01-03",
+}, {
+  $pop: {
+    readings: 1
+  }
+})
+
+use("platzi_store")
+
+db.iot.updateOne({
+  sensor: "A001",
+  date: "2022-01-03",
+}, {
+  $push: {
+    readings: 2323
+  }
+})
+
+// use("platzi_store")
+// // remove one element from array
+// db.iot.updateMany({},  {
+//   $unset: {
+//     $push: ""
+//   }
+// })
+
+db.iot.find()
