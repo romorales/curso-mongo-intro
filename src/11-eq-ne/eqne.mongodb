@@ -1,0 +1,39 @@
+use("platzi_store")
+
+db.inventory.drop()
+
+db.inventory.insertMany([
+  { _id: 1, item: { name: "ab", code: "123" }, qty: 15, tags: ["A", "B", "C"] },
+  { _id: 2, item: { name: "cd", code: "123" }, qty: 20, tags: ["B"] },
+  { _id: 3, item: { name: "ij", code: "456" }, qty: 25, tags: ["A", "B"] },
+  { _id: 4, item: { name: "xy", code: "456" }, qty: 30, tags: ["B", "A"] },
+  { _id: 5, item: { name: "mn", code: "000" }, qty: 20, tags: [["A", "B"], "C"] },
+])
+
+db.inventory.find()
+// Using $eq
+// usando equal implicitamente
+// db.inventory.find({ qty: 20 })
+
+// usando equal explícitamente
+// db.inventory.find({ qty: { $eq: 20 } })
+
+// usando find en objetos anidados
+//NOTA: siempre que esté la notación . (punto), la clave debe ir en "" (comnnillas)
+// db.inventory.find({ "item.code": "123" })
+// db.inventory.find({ "item.code": { $eq: "123" } })
+
+// Using $ne
+db.inventory.find({ qty: { $ne: 20 } })
+
+// update, increase 10 to property qty in docs with property qty not equal "20"
+db.inventory.updateMany(
+    // query - operators
+    { qty: { $ne: 20 } },
+    // update - operators
+    {
+      $inc: {
+        qty: 10
+      }
+    }
+  )

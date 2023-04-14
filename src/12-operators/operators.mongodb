@@ -1,0 +1,49 @@
+use("platzi_store")
+
+// Using $gt (>) & $gte (>=)
+db.inventory.find({ qty: { $gt: 20 } })
+db.inventory.find({ qty: { $gte: 20 } })
+
+// Using $lt (<) & $lte (<=)
+db.inventory.find({ qty: { $lt: 25 } })
+ db.inventory.find({ qty: { $lte: 25 } })
+
+// Join
+db.inventory.find({ qty: { $gte: 20, $lte: 25 } })
+db.inventory.find({
+  "item.code": { $ne: "123" },
+  qty: { $gte: 20, $lte: 25 }
+})
+
+//Ejemplos
+use("platzi_store")
+/*
+Actualiza todos los documentos donde el sensor no es igual a A001 y date es mayor o igual a 2022-01-02. 
+Crea un nuevo campo processed con valor true y agrega el valor 5 al array readings.
+*/
+db.iot.updateMany(
+  // query
+  {
+    sensor: { $ne: "A001" },
+    date: { $gte: "2022-01-02" }
+  },
+  // update
+  {
+    $set: { processed: true },
+    $push: { readings: 5 }
+  }
+)
+
+use("platzi_store")
+// Actualiza todos los documentos donde el sensor es igual a A001
+// Elimina los valores que sean igual o mayor a en el array readings.
+db.iot.updateMany(
+  // query
+  { sensor: "A001" },
+  // update
+  {
+    $pull: {
+      readings: { $gte: 3 }
+    }
+  }
+)
