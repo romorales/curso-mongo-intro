@@ -1,0 +1,23 @@
+use("platzi_store")
+
+//docs donde el valor del campo “spent” sea mayor que el valor del campo “budget”
+db.monthlyBudget.find({
+  $expr: {
+    $gte: ["$spent", "$budget"]
+  }
+})
+
+//docs donde el valor del campo “spent” sea menor que el valor del campo “budget”
+db.monthlyBudget.find({
+    $expr: {
+      $lte: ["$spent", "$budget"]
+    }
+  })
+
+db.monthlyBudget.find({ spent: {$gte: 100} })
+//sería el equivalente a hacer esto:
+db.monthlyBudget.find({
+ $expr: {
+     $gte: ["$spent", 100]
+    }
+})
