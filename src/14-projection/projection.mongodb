@@ -20,3 +20,10 @@ db.trips.find(
     // projection
     { tripduration: 0, usertype: 0 }
 )
+
+db.trips.find(
+    // query
+    { tripduration: { $gte: 500 } },
+    // projection
+    { tripduration: 1, usertype: 1, "start station location.type": 1 }
+)
