@@ -15,6 +15,7 @@ db.trips.find({
   $expr: {
     $and: [
       { $eq: ["$start station id", "$end station id"] },
+        //  {tripduration { $gte: 1200} } esto daría error
       { $gte: ["$tripduration", 1200] }
     ]
   }
