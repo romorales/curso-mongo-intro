@@ -1,0 +1,63 @@
+use("sample_training")
+
+// and implict
+db.inspections.find({
+  sector: "Tax Preparers - 891",
+  result: "Unable to Locate"
+}).count() // 6
+
+// and explict
+//$and [{}, {}, {}] va dentro de un array
+db.inspections.find({
+  $and: [
+    { sector: "Tax Preparers - 891" },
+    { result: "Unable to Locate" }
+  ]
+}).count() // 6
+
+// or: tiene que ser de forma explícita
+//$or [{}, {}, {}]
+db.inspections.find({
+  $or: [
+    { sector: "Tax Preparers - 891" },
+    { result: "Unable to Locate" }
+  ]
+})
+
+// nor: los que no cumplan con ninguna condición.
+// $nor [{}, {}, {}]
+db.inspections.find({
+  $nor: [
+    { sector: "Tax Preparers - 891" },
+    { result: "Unable to Locate" }
+  ]
+})
+
+// nor: los que no cumplan con ninguna condición.
+// mostrar únicamente el campo result
+db.inspections.find({
+  $nor: [
+    { result: "No Violation Issued" },
+    { result: "Unable to Locate" }
+  ]
+} , {
+  result: 1,
+  _id: 0
+})
+
+// $not = {} 
+//excluye un elemento en especifico y no tiene forma de array
+//79834
+db.inspections.find({
+  result: { $not: { $regex: /Unable to Locate/ } }
+}).count()
+
+//...equivalente a:
+db.inspections.find({
+  $nor: [
+    { result: "Unable to Locate" }
+  ]
+} , {
+  result: 1,
+  _id: 0
+}).count()
