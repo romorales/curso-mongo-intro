@@ -1,0 +1,10 @@
+use("sample_training")
+
+// sort con 1 = es en orden ASC  (0 - 10, A-Z)  
+// sort con -1 = es en orden DESC ( 10 - 0), Z-A)
+
+//DOS docs con mayor densidad poblacional mayores a 100
+db.zips
+  .find({ pop: { $gte: 100 } })
+  .sort({ pop: -1 })
+  .limit(2)
